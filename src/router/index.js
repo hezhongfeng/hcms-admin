@@ -23,15 +23,15 @@ const router = new VueRouter({
 });
 
 // 获取当前用户信息
-async function getCurrent() {
-  try {
-    let response = await http.get(getCurrentUserUrl, {});
-    store.commit('updateUser', response.admin);
-    return;
-  } catch (error) {
-    throw new Error('ERR_GET_CURRENT: ');
-  }
-}
+// async function getCurrent() {
+//   try {
+//     let response = await http.get(getCurrentUserUrl, {});
+//     store.commit('updateUser', response.admin);
+//     return;
+//   } catch (error) {
+//     throw new Error('ERR_GET_CURRENT: ');
+//   }
+// }
 
 router.beforeEach(async (to, from, next) => {
   // 当前用户信息
