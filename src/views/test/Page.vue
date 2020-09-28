@@ -39,6 +39,12 @@ export default {
             { label: '未处理', value: '1' },
             { label: '已处理', value: '2' }
           ]
+        },
+        {
+          type: 'switch',
+          label: '状态',
+          name: 'state',
+          value: true
         }
       ]
     };

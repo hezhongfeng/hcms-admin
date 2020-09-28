@@ -39,7 +39,7 @@
           :checked-children="filter.activeText"
           :un-checked-children="filter.inactiveText"
           :size="filter.size || 'small'"
-          @change="onChange"
+          @change="handleChange(index, arguments)"
         />
       </div>
       <!-- 输入框(搜索) -->
@@ -143,6 +143,7 @@ export default {
 
 <style lang="scss">
 .biz-table-filter {
+  display: flex;
   .filter-wrap:not(:first-child) {
     margin-left: 10px;
   }
