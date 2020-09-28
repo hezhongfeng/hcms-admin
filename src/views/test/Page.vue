@@ -6,6 +6,9 @@
 
 <script>
 import { BizTable } from '@/components/BizTable';
+import moment from 'moment';
+
+const dateFormat = 'YYYY-MM-DD';
 
 export default {
   name: 'test-page',
@@ -41,6 +44,12 @@ export default {
           ]
         },
         {
+          type: 'daterange',
+          label: '时间范围',
+          name: 'state',
+          value: [moment('2019-12-12', dateFormat), moment('2020-12-12', dateFormat)]
+        },
+        {
           type: 'switch',
           label: '状态',
           name: 'state',
@@ -53,8 +62,14 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    filterChange({ index, value }) {
-      this.filters[index].value = value[0];
+    filterChange({ index, type, value }) {
+      console.log(index, type, value);
+      // 日期范围
+      if (type === 'daterange') {
+        this.filters[index].value = [moment(value[0], dateFormat), moment(value[1], dateFormat)];
+      } else {
+        this.filters[index].value = value[0];
+      }
     }
   }
 };

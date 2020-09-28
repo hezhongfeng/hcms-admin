@@ -39,9 +39,10 @@ export default {
     operate(name) {
       this.$emit('operate', name);
     },
-    filterChange({ index, value }) {
+    filterChange({ index, type, value }) {
       this.$emit('filter-change', {
         index,
+        type,
         value
       });
     }

@@ -9,7 +9,7 @@
           :value="filter.value"
           :disabled="filter.disabled || false"
           :size="filter.size || 'small'"
-          @change="handleChange(index, arguments)"
+          @change="handleChange(index, filter.type, arguments)"
         >
           <a-select-option v-for="item in filter.options" :key="item.value" :title="item.label" :value="item.value">
             {{ item.label }}
@@ -39,7 +39,7 @@
           :checked-children="filter.activeText"
           :un-checked-children="filter.inactiveText"
           :size="filter.size || 'small'"
-          @change="handleChange(index, arguments)"
+          @change="handleChange(index, filter.type, arguments)"
         />
       </div>
       <!-- 输入框(搜索) -->
@@ -100,13 +100,12 @@
         ></el-date-picker>
       </div> -->
       <!-- 日期范围 -->
-      <div
-        v-if="filter.type === 'daterange'"
-        class="biz-date-range"
-        :class="filter.class"
-        :size="filter.size || 'small'"
-      >
-        <a-range-picker @change="onChange" />
+      <div v-if="filter.type === 'daterange'" class="biz-date-range">
+        <a-range-picker
+          :size="filter.size || 'small'"
+          :value="filter.value"
+          @change="handleChange(index, filter.type, arguments[1])"
+        />
       </div>
     </div>
   </div>
@@ -131,9 +130,10 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    handleChange(index, value) {
+    handleChange(index, type, value) {
       this.$emit('filter-change', {
         index,
+        type,
         value
       });
     }
