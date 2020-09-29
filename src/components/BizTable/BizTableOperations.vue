@@ -1,7 +1,7 @@
 <template>
   <div class="biz-table-operations">
     <a-button
-      size="small"
+      :size="operation.size"
       :disabled="operation.disabled"
       :class="operation.class"
       v-for="(operation, index) in operations"

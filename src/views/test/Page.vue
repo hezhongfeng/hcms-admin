@@ -1,6 +1,6 @@
 <template>
   <div class="test-page">
-    <biz-table :operations="operations" :filters="filters" @filter-change="filterChange"></biz-table>
+    <biz-table :operations="operations" :filters="filters" @filter-change="filterChange" :loading="loading"></biz-table>
   </div>
 </template>
 
@@ -18,6 +18,7 @@ export default {
   props: {},
   data() {
     return {
+      loading: false,
       operations: [
         {
           label: '新增',
@@ -53,7 +54,17 @@ export default {
           type: 'switch',
           label: '状态',
           name: 'state',
+          activeText: '进行中',
+          inactiveText: '已结束',
           value: true
+        },
+        {
+          type: 'input',
+          name: 'state',
+          placeholder: '请输入搜索内容',
+          style: 'width:180px',
+          defaultValue: '',
+          value: ''
         }
       ]
     };
@@ -63,6 +74,10 @@ export default {
   mounted() {},
   methods: {
     filterChange({ index, type, value }) {
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
       console.log(index, type, value);
       // 日期范围
       if (type === 'daterange') {
