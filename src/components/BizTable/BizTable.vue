@@ -15,6 +15,7 @@
       :selectedRowKeys="selectedRowKeys"
       @select-change="onSelectChange"
       @table-change="handleTableChange"
+      @row-click="onRowClick"
     ></biz-list>
   </div>
 </template>
@@ -94,6 +95,9 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    onRowClick(row) {
+      this.$emit('row-click', row);
+    },
     onSelectChange(keys) {
       this.$emit('select-change', keys);
     },

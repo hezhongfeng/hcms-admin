@@ -9,6 +9,7 @@
       :loading="loading"
       :scroll="scroll"
       :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
+      :customRow="customRow"
       @change="handleTableChange"
     >
     </a-table>
@@ -79,6 +80,15 @@ export default {
     },
     handleTableChange(pagination, filters, sorter) {
       this.$emit('table-change', pagination, filters, sorter);
+    },
+    customRow(row) {
+      return {
+        on: {
+          click: () => {
+            this.$emit('row-click', row);
+          }
+        }
+      };
     }
   }
 };
@@ -95,12 +105,6 @@ export default {
         height: 100%;
         .ant-table {
           height: calc(100% - 64px);
-          // .ant-table-content {
-          //   height: 100%;
-          //   .ant-table-scroll {
-          //     height: 100%;
-          //   }
-          // }
         }
       }
     }

@@ -12,12 +12,15 @@
       @operate="onOperate"
       @filter-change="filterChange"
       @table-change="onTableChange"
+      @row-click="onRowClick"
     ></biz-table>
+    <biz-popup-tabs :visible="visible" @close="visible = false"></biz-popup-tabs>
   </div>
 </template>
 
 <script>
 import { BizTable } from '@/components/BizTable';
+import { BizPopupTabs } from '@/components/BizPopupTabs';
 import moment from 'moment';
 
 const dateFormat = 'YYYY-MM-DD';
@@ -50,11 +53,13 @@ for (let i = 0; i < 100; i++) {
 export default {
   name: 'test-page',
   components: {
-    BizTable
+    BizTable,
+    BizPopupTabs
   },
   props: {},
   data() {
     return {
+      visible: false,
       selectedRowKeys: [],
       columns,
       tableData,
@@ -122,6 +127,10 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    onRowClick(row) {
+      console.log(row.id);
+      this.visible = true;
+    },
     onSelectChange(keys) {
       this.selectedRowKeys = keys;
     },
