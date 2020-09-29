@@ -7,10 +7,13 @@
       @filter-change="filterChange"
     ></biz-header>
     <biz-list
+      :rowKey="rowKey"
       :pagination="handlePagination"
       :loading="loading"
       :tableData="tableData"
       :columns="columns"
+      :selectedRowKeys="selectedRowKeys"
+      @select-change="onSelectChange"
       @table-change="handleTableChange"
     ></biz-list>
   </div>
@@ -24,6 +27,18 @@ export default {
   name: 'biz-table',
   components: { BizHeader, BizList },
   props: {
+    rowKey: {
+      type: String,
+      default() {
+        return 'id';
+      }
+    },
+    selectedRowKeys: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
     operations: {
       type: Array,
       default: function() {
@@ -79,6 +94,9 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    onSelectChange(keys) {
+      this.$emit('select-change', keys);
+    },
     onOperate() {
       this.$emit('operate', name);
     },

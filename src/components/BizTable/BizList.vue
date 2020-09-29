@@ -1,11 +1,13 @@
 <template>
   <div class="biz-list">
     <a-table
+      :rowKey="rowKey"
       :columns="columns"
       :row-key="record => record.id"
       :data-source="tableData"
       :pagination="pagination"
       :loading="loading"
+      :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: onSelectChange }"
       @change="handleTableChange"
     >
     </a-table>
@@ -17,6 +19,18 @@ export default {
   name: 'biz-list',
   components: {},
   props: {
+    rowKey: {
+      type: String,
+      default() {
+        return 'id';
+      }
+    },
+    selectedRowKeys: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
     pagination: {
       type: Object,
       default() {
@@ -52,6 +66,9 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    onSelectChange(keys) {
+      this.$emit('select-change', keys);
+    },
     handleTableChange(pagination, filters, sorter) {
       this.$emit('table-change', pagination, filters, sorter);
     }

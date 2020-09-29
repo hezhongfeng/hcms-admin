@@ -5,6 +5,10 @@
       :filters="filters"
       :loading="loading"
       :pagination="pagination"
+      :columns="columns"
+      :tableData="tableData"
+      :selectedRowKeys="selectedRowKeys"
+      @select-change="onSelectChange"
       @operate="onOperate"
       @filter-change="filterChange"
       @table-change="onTableChange"
@@ -18,6 +22,31 @@ import moment from 'moment';
 
 const dateFormat = 'YYYY-MM-DD';
 
+const columns = [
+  {
+    title: 'Name',
+    dataIndex: 'name'
+  },
+  {
+    title: 'Age',
+    dataIndex: 'age'
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address'
+  }
+];
+
+const tableData = [];
+for (let i = 0; i < 100; i++) {
+  tableData.push({
+    id: i,
+    name: `Edward King ${i}`,
+    age: 32,
+    address: `London, Park Lane no. ${i}`
+  });
+}
+
 export default {
   name: 'test-page',
   components: {
@@ -26,6 +55,9 @@ export default {
   props: {},
   data() {
     return {
+      selectedRowKeys: [],
+      columns,
+      tableData,
       pagination: {
         current: 1,
         pageSize: 20,
@@ -82,10 +114,18 @@ export default {
       ]
     };
   },
-  computed: {},
+  computed: {
+    hasSelected() {
+      return this.selectedRowKeys.length > 0;
+    }
+  },
   created() {},
   mounted() {},
   methods: {
+    onSelectChange(keys) {
+      console.log(keys);
+      this.selectedRowKeys = keys;
+    },
     onOperate(name) {
       console.log(name);
     },
