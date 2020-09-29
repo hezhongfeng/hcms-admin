@@ -64,19 +64,7 @@ export default {
         total: 100
       },
       loading: false,
-      operations: [
-        {
-          label: '新增',
-          type: 'primary'
-        },
-        {
-          label: '刷新'
-        },
-        {
-          disabled: true,
-          label: '删除'
-        }
-      ],
+
       filters: [
         {
           type: 'select',
@@ -115,15 +103,26 @@ export default {
     };
   },
   computed: {
-    hasSelected() {
-      return this.selectedRowKeys.length > 0;
+    operations() {
+      return [
+        {
+          label: '新增',
+          type: 'primary'
+        },
+        {
+          label: '刷新'
+        },
+        {
+          disabled: !(this.selectedRowKeys.length > 0),
+          label: '删除'
+        }
+      ];
     }
   },
   created() {},
   mounted() {},
   methods: {
     onSelectChange(keys) {
-      console.log(keys);
       this.selectedRowKeys = keys;
     },
     onOperate(name) {
@@ -145,6 +144,7 @@ export default {
     onTableChange(pagination) {
       this.pagination.current = pagination.current;
       this.pagination.pageSize = pagination.pageSize;
+      this.selectedRowKeys = [];
       this.loading = true;
       setTimeout(() => {
         this.loading = false;
@@ -156,5 +156,6 @@ export default {
 
 <style lang="scss">
 .test-page {
+  height: 100%;
 }
 </style>

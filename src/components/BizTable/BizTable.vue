@@ -116,5 +116,6 @@ export default {
 
 <style lang="scss">
 .biz-table {
+  height: 100%;
 }
 </style>
