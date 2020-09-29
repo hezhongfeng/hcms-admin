@@ -52,7 +52,9 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    handleTableChange() {}
+    handleTableChange(pagination, filters, sorter) {
+      this.$emit('table-change', pagination, filters, sorter);
+    }
   }
 };
 </script>

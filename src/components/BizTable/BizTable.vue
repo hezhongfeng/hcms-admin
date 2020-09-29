@@ -6,7 +6,13 @@
       :filters="filters"
       @filter-change="filterChange"
     ></biz-header>
-    <biz-list :pagination="pagination" :loading="loading" :tableData="tableData" :columns="columns"></biz-list>
+    <biz-list
+      :pagination="handlePagination"
+      :loading="loading"
+      :tableData="tableData"
+      :columns="columns"
+      @table-change="handleTableChange"
+    ></biz-list>
   </div>
 </template>
 
@@ -33,10 +39,7 @@ export default {
     pagination: {
       type: Object,
       default() {
-        return {
-          pageSize: 20,
-          current: 4
-        };
+        return {};
       }
     },
     loading: {
@@ -61,7 +64,18 @@ export default {
   data() {
     return {};
   },
-  computed: {},
+  computed: {
+    handlePagination() {
+      return {
+        defaultPageSize: this.pagination.defaultPageSize || 20,
+        current: this.pagination.current,
+        defaultCurrent: this.pagination.defaultCurrent || 1,
+        total: this.pagination.total || 0,
+        'show-size-changer': this.pagination['show-size-changer'] || true,
+        pageSize: this.pagination.pageSize
+      };
+    }
+  },
   created() {},
   mounted() {},
   methods: {
@@ -75,7 +89,9 @@ export default {
         value
       });
     },
-    handleTableChange() {}
+    handleTableChange(pagination, filters, sorter) {
+      this.$emit('table-change', pagination, filters, sorter);
+    }
   }
 };
 </script>

@@ -1,6 +1,14 @@
 <template>
   <div class="test-page">
-    <biz-table :operations="operations" :filters="filters" @filter-change="filterChange" :loading="loading"></biz-table>
+    <biz-table
+      :operations="operations"
+      :filters="filters"
+      :loading="loading"
+      :pagination="pagination"
+      @operate="onOperate"
+      @filter-change="filterChange"
+      @table-change="onTableChange"
+    ></biz-table>
   </div>
 </template>
 
@@ -18,6 +26,11 @@ export default {
   props: {},
   data() {
     return {
+      pagination: {
+        current: 1,
+        pageSize: 20,
+        total: 100
+      },
       loading: false,
       operations: [
         {
@@ -73,6 +86,9 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    onOperate(name) {
+      console.log(name);
+    },
     filterChange({ index, type, value }) {
       this.loading = true;
       setTimeout(() => {
@@ -85,6 +101,14 @@ export default {
       } else {
         this.filters[index].value = value[0];
       }
+    },
+    onTableChange(pagination) {
+      this.pagination.current = pagination.current;
+      this.pagination.pageSize = pagination.pageSize;
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     }
   }
 };
