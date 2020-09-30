@@ -49,12 +49,13 @@ export default {
 .biz-popup-tabs {
   height: 100%;
   .ant-drawer-body {
-    padding-top: 10px;
+    padding: 10px;
+    padding-top: 0;
     height: 100%;
     .ant-tabs {
       height: 100%;
       .ant-tabs-content {
-        height: 100%;
+        height: calc(100% - 60px);
         overflow-y: auto;
       }
     }
