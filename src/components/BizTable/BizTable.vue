@@ -101,7 +101,7 @@ export default {
     onSelectChange(keys) {
       this.$emit('select-change', keys);
     },
-    onOperate() {
+    onOperate(name) {
       this.$emit('operate', name);
     },
     filterChange({ index, type, value }) {

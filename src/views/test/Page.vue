@@ -14,7 +14,56 @@
       @table-change="onTableChange"
       @row-click="onRowClick"
     ></biz-table>
-    <biz-popup-tabs :visible="visible" @close="visible = false"></biz-popup-tabs>
+    <biz-popup-tabs :visible="visible" @close="visible = false">
+      <a-tab-pane key="211" tab="2423" class="biz-tab">
+        <div class="tab-content"></div>
+      </a-tab-pane>
+      <a-tab-pane key="2" tab="Tab 2">
+        Content of Tab Pane 2
+        <a-card title="Default size card" style="width: 300px">
+          <a slot="extra" href="#">more</a>
+          <p>card content</p>
+          <p>card content</p>
+          <p>card content</p>
+        </a-card>
+        <br />
+        <a-card size="small" title="Small size card" style="width: 300px">
+          <a slot="extra" href="#">more</a>
+          <p>card content</p>
+          <p>card content</p>
+          <p>card content</p>
+        </a-card>
+        <a-card title="Default size card" style="width: 300px">
+          <a slot="extra" href="#">more</a>
+          <p>card content</p>
+          <p>card content</p>
+          <p>card content</p>
+        </a-card>
+        <br />
+        <a-card size="small" title="Small size card" style="width: 300px">
+          <a slot="extra" href="#">more</a>
+          <p>card content</p>
+          <p>card content</p>
+          <p>card content</p>
+        </a-card>
+        <a-card title="Default size card" style="width: 300px">
+          <a slot="extra" href="#">more</a>
+          <p>card content</p>
+          <p>card content</p>
+          <p>card content</p>
+        </a-card>
+        <br />
+        <a-card size="small" title="Small size card" style="width: 300px">
+          <a slot="extra" href="#">more</a>
+          <p>card content</p>
+          <p>card content</p>
+          <p>card content</p>
+        </a-card>
+      </a-tab-pane>
+      <a-tab-pane key="3" tab="Tab 3">
+        Content of Tab Pane 3
+      </a-tab-pane>
+    </biz-popup-tabs>
   </div>
 </template>
 
@@ -69,7 +118,6 @@ export default {
         total: 100
       },
       loading: false,
-
       filters: [
         {
           type: 'select',
@@ -111,13 +159,16 @@ export default {
     operations() {
       return [
         {
+          name: 'create',
           label: '新增',
           type: 'primary'
         },
         {
+          name: 'refresh',
           label: '刷新'
         },
         {
+          name: 'delete',
           disabled: !(this.selectedRowKeys.length > 0),
           label: '删除'
         }
@@ -127,6 +178,11 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    create() {
+      this.visible = true;
+    },
+    refresh() {},
+    delete() {},
     onRowClick(row) {
       console.log(row.id);
       this.visible = true;
@@ -135,7 +191,8 @@ export default {
       this.selectedRowKeys = keys;
     },
     onOperate(name) {
-      console.log(name);
+      // console.log(name);
+      this[name]();
     },
     filterChange({ index, type, value }) {
       this.loading = true;

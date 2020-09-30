@@ -1,15 +1,15 @@
 <template>
   <a-drawer
     class="biz-popup-tabs"
-    title="Basic Drawer"
     placement="right"
     :closable="false"
     :visible="visible"
+    :width="width"
     @close="onClose"
   >
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
+    <a-tabs default-active-key="1" :animated="false">
+      <slot> </slot>
+    </a-tabs>
   </a-drawer>
 </template>
 
@@ -18,6 +18,12 @@ export default {
   name: 'biz-popup-tabs',
   components: {},
   props: {
+    width: {
+      type: Number,
+      default() {
+        return 500;
+      }
+    },
     visible: {
       type: Boolean,
       default() {
@@ -41,5 +47,17 @@ export default {
 
 <style lang="scss">
 .biz-popup-tabs {
+  height: 100%;
+  .ant-drawer-body {
+    padding-top: 10px;
+    height: 100%;
+    .ant-tabs {
+      height: 100%;
+      .ant-tabs-content {
+        height: 100%;
+        overflow-y: auto;
+      }
+    }
+  }
 }
 </style>
