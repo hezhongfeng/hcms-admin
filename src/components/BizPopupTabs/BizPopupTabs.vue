@@ -7,7 +7,7 @@
     :width="width"
     @close="onClose"
   >
-    <a-tabs default-active-key="1" :animated="false">
+    <a-tabs :default-active-key="defaultActiveKey" :animated="false">
       <slot> </slot>
     </a-tabs>
   </a-drawer>
@@ -18,6 +18,10 @@ export default {
   name: 'biz-popup-tabs',
   components: {},
   props: {
+    defaultActiveKey: {
+      type: String,
+      required: true
+    },
     width: {
       type: Number,
       default() {

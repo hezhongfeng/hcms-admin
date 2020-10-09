@@ -14,62 +14,14 @@
       @table-change="onTableChange"
       @row-click="onRowClick"
     ></biz-table>
-    <biz-popup-tabs :visible="visible" @close="visible = false">
-      <a-tab-pane key="211" tab="2423" class="biz-tab">
-        <div class="tab-content"></div>
-      </a-tab-pane>
-      <a-tab-pane key="2" tab="Tab 2">
-        Content of Tab Pane 2
-        <a-card title="Default size card" style="width: 300px">
-          <a slot="extra" href="#">more</a>
-          <p>card content</p>
-          <p>card content</p>
-          <p>card content</p>
-        </a-card>
-        <br />
-        <a-card size="small" title="Small size card" style="width: 300px">
-          <a slot="extra" href="#">more</a>
-          <p>card content</p>
-          <p>card content</p>
-          <p>card content</p>
-        </a-card>
-        <a-card title="Default size card" style="width: 300px">
-          <a slot="extra" href="#">more</a>
-          <p>card content</p>
-          <p>card content</p>
-          <p>card content</p>
-        </a-card>
-        <br />
-        <a-card size="small" title="Small size card" style="width: 300px">
-          <a slot="extra" href="#">more</a>
-          <p>card content</p>
-          <p>card content</p>
-          <p>card content</p>
-        </a-card>
-        <a-card title="Default size card" style="width: 300px">
-          <a slot="extra" href="#">more</a>
-          <p>card content</p>
-          <p>card content</p>
-          <p>card content</p>
-        </a-card>
-        <br />
-        <a-card size="small" title="Small size card" style="width: 300px">
-          <a slot="extra" href="#">more</a>
-          <p>card content</p>
-          <p>card content</p>
-          <p>card content</p>
-        </a-card>
-      </a-tab-pane>
-      <a-tab-pane key="3" tab="Tab 3">
-        Content of Tab Pane 3
-      </a-tab-pane>
-    </biz-popup-tabs>
+    <page-popup :visible.sync="popupVisible"></page-popup>
   </div>
 </template>
 
 <script>
 import { BizTable } from '@/components/BizTable';
-import { BizPopupTabs } from '@/components/BizPopupTabs';
+import PagePopup from './PagePopup';
+
 import moment from 'moment';
 
 const dateFormat = 'YYYY-MM-DD';
@@ -103,12 +55,12 @@ export default {
   name: 'test-page',
   components: {
     BizTable,
-    BizPopupTabs
+    PagePopup
   },
   props: {},
   data() {
     return {
-      visible: false,
+      popupVisible: false,
       selectedRowKeys: [],
       columns,
       tableData,
@@ -179,19 +131,18 @@ export default {
   mounted() {},
   methods: {
     create() {
-      this.visible = true;
+      this.popupVisible = true;
     },
     refresh() {},
     delete() {},
     onRowClick(row) {
       console.log(row.id);
-      this.visible = true;
+      this.popupVisible = true;
     },
     onSelectChange(keys) {
       this.selectedRowKeys = keys;
     },
     onOperate(name) {
-      // console.log(name);
       this[name]();
     },
     filterChange({ index, type, value }) {
