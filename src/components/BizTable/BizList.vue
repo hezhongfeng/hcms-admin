@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      scroll: { y: 400 }
+      scroll: { y: '100%' }
     };
   },
   computed: {},
@@ -73,6 +73,7 @@ export default {
   },
   methods: {
     getContainerHeight() {
+      // 处理表头和pagination的高度
       this.scroll.y = this.$refs['list'].clientHeight - 64 - 54;
     },
     onSelectChange(keys) {
@@ -97,17 +98,5 @@ export default {
 <style lang="scss">
 .biz-list {
   height: calc(100% - 52px);
-  .ant-table-wrapper {
-    height: 100%;
-    .ant-spin-nested-loading {
-      height: 100%;
-      .ant-spin-container {
-        height: 100%;
-        .ant-table {
-          height: calc(100% - 64px);
-        }
-      }
-    }
-  }
 }
 </style>

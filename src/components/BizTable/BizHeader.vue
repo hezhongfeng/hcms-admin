@@ -54,6 +54,7 @@ export default {
 .biz-header {
   padding: 10px;
   display: flex;
+  height: 52px;
   justify-content: space-between;
 }
 </style>
