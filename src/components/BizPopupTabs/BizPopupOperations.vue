@@ -1,5 +1,5 @@
 <template>
-  <div class="biz-popup-btns">
+  <div class="biz-popup-operations">
     <a-button
       :size="operation.size"
       :disabled="operation.disabled"
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: 'biz-popup-btns',
+  name: 'biz-popup-operations',
   components: {},
   props: {
     operations: {
@@ -41,7 +41,7 @@ export default {
 </script>
 
 <style lang="scss">
-.biz-popup-btns {
+.biz-popup-operations {
   button:not(:first-child) {
     margin-left: 10px;
   }

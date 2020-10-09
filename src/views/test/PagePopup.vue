@@ -1,7 +1,10 @@
 <template>
-  <biz-popup-tabs class="page-popup" :visible="visible" @close="onClose" default-active-key="2">
+  <biz-popup-tabs class="page-popup" :visible="visible" @close="onClose" default-active-key="211">
     <a-tab-pane key="211" tab="2423" class="biz-tab">
-      <div class="tab-content">1231231</div>
+      <div class="tab-content">
+        <BizPopupOperations :operations="operations" @operate="onOperate"></BizPopupOperations>
+        1231231
+      </div>
     </a-tab-pane>
     <a-tab-pane key="2" tab="Tab 2">
       Content of Tab Pane 2
@@ -52,12 +55,13 @@
 </template>
 
 <script>
-import { BizPopupTabs } from '@/components/BizPopupTabs';
+import { BizPopupTabs, BizPopupOperations } from '@/components/BizPopupTabs';
 
 export default {
   name: 'page-popup',
   components: {
-    BizPopupTabs
+    BizPopupTabs,
+    BizPopupOperations
   },
   props: {
     visible: {
@@ -68,7 +72,15 @@ export default {
     }
   },
   data() {
-    return {};
+    return {
+      operations: [
+        {
+          name: 'save',
+          label: '保存',
+          type: 'primary'
+        }
+      ]
+    };
   },
   computed: {},
   created() {},
@@ -76,6 +88,12 @@ export default {
   methods: {
     onClose() {
       this.$emit('update:visible', false);
+    },
+    onOperate(name) {
+      this[name]();
+    },
+    save() {
+      this.$message.success('保存成功');
     }
   }
 };

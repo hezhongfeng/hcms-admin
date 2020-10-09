@@ -1,3 +1,4 @@
 import BizPopupTabs from './BizPopupTabs';
+import BizPopupOperations from './BizPopupOperations';
 
-export { BizPopupTabs };
+export { BizPopupTabs, BizPopupOperations };

@@ -62,6 +62,9 @@ export default {
         height: calc(100% - 60px);
         overflow-y: auto;
       }
+      .ant-tabs-bar {
+        margin-bottom: 10px;
+      }
     }
   }
 }
