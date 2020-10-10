@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import http from '@/utils/http';
+
 export default {
   name: 'login',
   components: {},
@@ -58,7 +60,17 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('submit!');
+          http
+            .post('auth/login', {
+              username: this.ruleForm.username,
+              password: this.ruleForm.password
+            })
+            .then(data => {
+              console.log(data);
+            })
+            .catch(error => {
+              console.log(error);
+            });
         } else {
           console.log('error submit!!');
           return false;
