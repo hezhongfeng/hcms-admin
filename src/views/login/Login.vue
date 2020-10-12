@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import http from '@/utils/http';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -61,22 +60,22 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    ...mapMutations(['updateUser']),
+    ...mapMutations(['updateUser', 'updateToken']),
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          http
-            .post('auth/login', {
+          this.$http
+            .post('api/v1/login', {
               username: this.ruleForm.username,
               password: this.ruleForm.password
             })
             .then(data => {
-              // console.log(data);
               this.updateUser({
-                token: data.access_token,
+                permissions: data.permissions,
                 userId: data.userId
               });
-              console.log(data);
+              this.updateToken(data.access_token);
+              this.$router.replace('/');
             })
             .catch(error => {
               console.log(error);
@@ -94,8 +93,8 @@ export default {
       this.$refs[formName].resetFields();
     },
     onTest() {
-      http
-        .get('profile')
+      this.$http
+        .get('api/v1/current')
         .then(data => {
           console.log('then', data);
         })

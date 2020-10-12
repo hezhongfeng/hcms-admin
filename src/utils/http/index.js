@@ -27,6 +27,9 @@ axios.interceptors.response.use(
 
         case 401:
           store.commit('updateUser', {});
+          // 清除无效 token
+          store.commit('updateToken', '');
+          localStorage.setItem('token', '');
           console.log('未登录获登录超时');
           err.message = '未授权，请登录';
           router.replace('/login');
