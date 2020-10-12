@@ -13,11 +13,15 @@
         </a-button>
       </a-form-model-item>
     </a-form-model>
+    <a-button type="primary" @click="onTest">
+      测试
+    </a-button>
   </div>
 </template>
 
 <script>
 import http from '@/utils/http';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'login',
@@ -57,6 +61,7 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    ...mapMutations(['updateUser']),
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -66,10 +71,18 @@ export default {
               password: this.ruleForm.password
             })
             .then(data => {
+              // console.log(data);
+              this.updateUser({
+                token: data.access_token,
+                userId: data.userId
+              });
               console.log(data);
             })
             .catch(error => {
               console.log(error);
+            })
+            .finally(data => {
+              console.log('完成', data);
             });
         } else {
           console.log('error submit!!');
@@ -79,6 +92,19 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+    },
+    onTest() {
+      http
+        .get('profile')
+        .then(data => {
+          console.log('then', data);
+        })
+        .catch(error => {
+          console.log('catch', error);
+        })
+        .finally(data => {
+          console.log('完成', data);
+        });
     }
   }
 };
