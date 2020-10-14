@@ -9,5 +9,8 @@ export default {
     state.user.token = token;
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
     localStorage.setItem('token', token);
+  },
+  updateCollapsed(state, collapsed) {
+    state.collapsed = collapsed;
   }
 };

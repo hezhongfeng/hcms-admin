@@ -3,15 +3,24 @@ import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
 import Login from '@/views/login/Login.vue';
 import Page from '@/views/test/Page.vue';
-import store from '@/store';
-import http from '@/utils/http';
-import axios from 'axios';
+// import store from '@/store';
+// import http from '@/utils/http';
+// import axios from 'axios';
+import BasicLayout from '@/components/Layout/BasicLayout';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
+    name: 'index',
+    component: BasicLayout,
+    meta: { title: 'menu.home' },
+    // redirect: '/dashboard/workplace',
+    children: []
+  },
+  {
+    path: '/home',
     component: Home
   },
   {
@@ -31,43 +40,43 @@ const router = new VueRouter({
 });
 
 // 获取当前用户信息
-async function getCurrent() {
-  let data = await http.get('api/v1/current');
-  store.commit('updateUser', {
-    permissions: data.permissions,
-    userId: data.userId
-  });
-}
+// async function getCurrent() {
+//   let data = await http.get('api/v1/current');
+//   store.commit('updateUser', {
+//     permissions: data.permissions,
+//     userId: data.userId
+//   });
+// }
 
 router.beforeEach(async (to, from, next) => {
-  // 当前用户信息
-  const user = store.getters.user;
-  let hasCurrent = !!user.userId;
+  // // 当前用户信息
+  // const user = store.getters.user;
+  // let hasCurrent = !!user.userId;
 
-  // 白名单，只允许不登录时候访问
-  let whiteRouteList = ['/login'];
-  if (whiteRouteList.indexOf(to.path) !== -1) {
-    if (!hasCurrent) {
-      next();
-    } else {
-      // 禁止登录状态下访问login页面
-      next({ path: '/' });
-    }
-    return;
-  }
+  // // 白名单，只允许不登录时候访问
+  // let whiteRouteList = ['/login'];
+  // if (whiteRouteList.indexOf(to.path) !== -1) {
+  //   if (!hasCurrent) {
+  //     next();
+  //   } else {
+  //     // 禁止登录状态下访问login页面
+  //     next({ path: '/' });
+  //   }
+  //   return;
+  // }
 
-  // 没登录或者刷新时候清除了vuex
-  if (!hasCurrent) {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      next('login');
-      return;
-    } else {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
-    }
-    await getCurrent();
-    next();
-  }
+  // // 没登录或者刷新时候清除了vuex
+  // if (!hasCurrent) {
+  //   const token = localStorage.getItem('token');
+  //   if (!token) {
+  //     next('login');
+  //     return;
+  //   } else {
+  //     axios.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+  //   }
+  //   await getCurrent();
+  //   next();
+  // }
 
   next();
 });
