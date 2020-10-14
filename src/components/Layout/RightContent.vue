@@ -1,5 +1,5 @@
 <template>
-  <div :class="wrpCls">
+  <div class="right-content">
     <avatar-dropdown :menu="showMenu" :current-user="currentUser" :class="prefixCls" />
   </div>
 </template>
@@ -23,11 +23,9 @@ export default {
     },
     topMenu: {
       type: Boolean,
-      required: true
-    },
-    theme: {
-      type: String,
-      required: true
+      default() {
+        return true;
+      }
     }
   },
   data() {
@@ -40,7 +38,7 @@ export default {
     wrpCls() {
       return {
         'ant-pro-global-header-index-right': true,
-        [`ant-pro-global-header-index-${this.isMobile || !this.topMenu ? 'light' : this.theme}`]: true
+        [`ant-pro-global-header-index-dark`]: true
       };
     }
   },
@@ -53,3 +51,24 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.right-content {
+  margin-right: 8px;
+  float: right;
+  height: 100%;
+  margin-left: auto;
+  overflow: hidden;
+  &:hover {
+    background: rgba(0, 0, 0, 0.025);
+  }
+  .menu {
+    .anticon {
+      margin-right: 8px;
+    }
+    .ant-dropdown-menu-item {
+      min-width: 100px;
+    }
+  }
+}
+</style>

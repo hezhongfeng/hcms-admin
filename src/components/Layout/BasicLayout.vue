@@ -4,6 +4,7 @@
     :collapsed="collapsed"
     :handleCollapse="handleCollapse"
     :handleMediaQuery="handleMediaQuery"
+    class="basic-layout"
   >
     <template v-slot:menuHeaderRender>
       <div>
@@ -12,7 +13,7 @@
       </div>
     </template>
     <template v-slot:rightContentRender>
-      <!-- <right-content /> -->
+      <right-content />
     </template>
     <template v-slot:footerRender>
       <div></div>
@@ -23,12 +24,12 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-// import RightContent from './RightContent';
+import RightContent from './RightContent';
 
 export default {
   name: 'BasicLayout',
   components: {
-    // RightContent
+    RightContent
   },
   data() {
     return {
@@ -55,6 +56,36 @@ export default {
 };
 </script>
 
-<style lang="less">
-@import './BasicLayout.less';
+<style lang="scss">
+.basic-layout {
+  margin-right: 8px;
+  &.ant-pro-global-header-index-dark {
+    .ant-pro-global-header-index-action {
+      color: hsla(0, 0%, 100%, 0.85);
+      &:hover {
+        background: #1890ff;
+      }
+    }
+  }
+
+  .ant-pro-account-avatar {
+    .antd-pro-global-header-index-avatar {
+      // margin: ~'calc((@{layout-header-height} - 24px) / 2)' 0;
+      margin-right: 8px;
+      // color: @primary-color;
+      vertical-align: top;
+      background: rgba(255, 255, 255, 0.85);
+    }
+  }
+
+  .menu {
+    .anticon {
+      margin-right: 8px;
+    }
+
+    .ant-dropdown-menu-item {
+      min-width: 100px;
+    }
+  }
+}
 </style>
