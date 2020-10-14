@@ -6,6 +6,9 @@
     <a-button type="primary" @click="onLogin">
       login
     </a-button>
+    <a-button type="primary" @click="onProduct">
+      产品管理
+    </a-button>
   </div>
 </template>
 
@@ -16,7 +19,10 @@ export default {
   methods: {
     onTest() {
       this.$http
-        .get('api/v1/current')
+        .get('api/v1/products', {
+          current: 1,
+          pageSize: 20
+        })
         .then(data => {
           console.log('then', data);
         })
@@ -29,6 +35,9 @@ export default {
     },
     onLogin() {
       this.$router.push('login');
+    },
+    onProduct() {
+      this.$router.push('product');
     }
   }
 };
